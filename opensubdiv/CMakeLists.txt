@@ -240,11 +240,12 @@ if (NOT NO_LIB)
 
     # Build frameworks  ----------------------------------
     if(APPLE)
-        get_directory_property(OSD_HEADER_FILES DIRECTORY ${CMAKE_SOURCE_DIR}/opensubdiv/osd DEFINITION PUBLIC_HEADER_FILES)
-        get_directory_property(FAR_HEADER_FILES DIRECTORY ${CMAKE_SOURCE_DIR}/opensubdiv/far DEFINITION PUBLIC_HEADER_FILES)
-        get_directory_property(SDC_HEADER_FILES DIRECTORY ${CMAKE_SOURCE_DIR}/opensubdiv/sdc DEFINITION PUBLIC_HEADER_FILES)
-        get_directory_property(HBR_HEADER_FILES DIRECTORY ${CMAKE_SOURCE_DIR}/opensubdiv/hbr DEFINITION PUBLIC_HEADER_FILES)
-        get_directory_property(VTR_HEADER_FILES DIRECTORY ${CMAKE_SOURCE_DIR}/opensubdiv/vtr DEFINITION PUBLIC_HEADER_FILES)
+        # message(STATUS ${CMAKE_SOURCE_DIR}/opensubdiv/osd)
+        get_directory_property(OSD_HEADER_FILES DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/osd DEFINITION PUBLIC_HEADER_FILES)
+        get_directory_property(FAR_HEADER_FILES DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/far DEFINITION PUBLIC_HEADER_FILES)
+        get_directory_property(SDC_HEADER_FILES DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/sdc DEFINITION PUBLIC_HEADER_FILES)
+        get_directory_property(HBR_HEADER_FILES DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/hbr DEFINITION PUBLIC_HEADER_FILES)
+        get_directory_property(VTR_HEADER_FILES DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/vtr DEFINITION PUBLIC_HEADER_FILES)
 
 
         foreach(file ${OSD_HEADER_FILES})
@@ -304,7 +305,7 @@ if (NOT NO_LIB)
         foreach(file ${PUBLIC_HEADER_FILES})
             add_custom_command(TARGET osd_static_framework POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy
-                "${CMAKE_SOURCE_DIR}/opensubdiv/${file}"
+                "${CMAKE_CURRENT_SOURCE_DIR}/${file}"
                 "$<TARGET_FILE_DIR:osd_static_framework>/Headers/${file}"
             )
         endforeach(file)
@@ -353,7 +354,7 @@ if (NOT NO_LIB)
             foreach(file ${PUBLIC_HEADER_FILES})
                 add_custom_command(TARGET osd_dynamic_framework POST_BUILD
                     COMMAND ${CMAKE_COMMAND} -E copy
-                    "${CMAKE_SOURCE_DIR}/opensubdiv/${file}"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/${file}"
                     "$<TARGET_FILE_DIR:osd_dynamic_framework>/Headers/${file}"
                 )
             endforeach(file)
